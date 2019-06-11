@@ -1,0 +1,45 @@
+{
+  "name": "webpack-plugin-spark",
+  "version": "1.0.0",
+  "description": "Serve spark UI with hot reloading",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "npm run build -- -w",
+    "prebuild": "npm run clean",
+    "build": "cross-env NODE_ENV=production babel src -d dist --copy-files",
+    "clean": "del-cli dist",
+    "lint": "eslint --cache src test",
+    "prepare": "npm run build",
+    "release": "standard-version",
+    "security": "npm audit",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pretest": "npm run lint"
+  },
+  "keywords": [
+    "rdk",
+    "spark",
+    "ui",
+    "webpack",
+    "hot",
+    "reload",
+    "serve"
+  ],
+  "author": "",
+  "license": "ISC",
+  "peerDependencies": {
+    "webpack": "^4.0.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "cross-env": "^5.2.0",
+    "del-cli": "^2.0.0",
+    "eslint": "^5.16.0",
+    "eslint-plugin-import": "^2.17.3",
+    "eslint-plugin-prettier": "^3.1.0",
+    "prettier": "^1.18.2",
+    "standard-version": "^6.0.1",
+    "webpack": "^4.33.0"
+  }
+}
