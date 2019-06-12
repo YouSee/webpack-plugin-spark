@@ -1,5 +1,5 @@
 # webpack-plugin-spark
-Spark UI plugin for webpack with hot reloading
+Webpack plugin for Spark UI development
 
 ## Description
 This webpack plugin enables use of hot reloading when developing apps for the Spark UI browser: https://www.sparkui.org
@@ -20,6 +20,7 @@ Create a `webpack.config.js` file:
 
 ```js
 const WebpackPluginSpark = require('webpack-plugin-spark');
+const path = require('path');
 
 module.exports = {
 	// an example entry definition
@@ -31,6 +32,7 @@ module.exports = {
     new WebpackPluginSpark({
       progress: true,
       liveReload: true,
+      static: path.join(__dirname, './dist')
     })
   ],
 };
