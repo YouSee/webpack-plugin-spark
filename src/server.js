@@ -33,36 +33,43 @@ const start = async function start() {
 
   this.listening = true
 
+  // Send info to connected clients method
+  const sendInfoToClients = data =>
+    this.wss.clients.forEach(client => {
+      if (client.readyState === WebSocket.OPEN) {
+        client.send(JSON.stringify(data))
+      }
+    })
+
   // Webpack events
   this.on('done', () => {
     // Build is done - tell the clients reload if needed
     if (this.options.liveReload) {
-      this.wss.clients.forEach(client => {
-        if (client.readyState === WebSocket.OPEN) {
-          client.send(
-            JSON.stringify({
-              eventType: 'liveReloadEvent',
-              hash: this.lastHash,
-            }),
-          )
-        }
+      sendInfoToClients({
+        eventType: 'liveReloadEvent',
+        hash: this.lastHash,
       })
     }
   })
-  this.on('invalid', () => console.log('INVALID STATE!'))
+
+  this.on('invalid', () => {
+    if (this.options.progress) {
+      // Send Progress event message
+      sendInfoToClients({
+        eventType: 'progressEvent',
+        progress: 0,
+        hash: '',
+      })
+    }
+  })
+
   this.on('progress', data => {
     if (this.options.progress) {
       // Send Progress event message
-      this.wss.clients.forEach(client => {
-        if (client.readyState === WebSocket.OPEN) {
-          client.send(
-            JSON.stringify({
-              eventType: 'progressEvent',
-              progress: data.percent * 100,
-              hash: this.lastHash,
-            }),
-          )
-        }
+      sendInfoToClients({
+        eventType: 'progressEvent',
+        progress: data.percent * 100,
+        hash: this.lastHash,
       })
     }
   })

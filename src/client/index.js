@@ -44,10 +44,8 @@ const updateProgressInfomation = (scene, progress, hash) => {
       t: 'text',
       parent: scene.root,
       text: infoText,
-      x: 100,
-      y: 100,
       textColor: 0xff0000ff,
-      pixelSize: 64,
+      pixelSize: 40,
     })
   }
 }
