@@ -12,7 +12,7 @@ const start = async function start() {
   const emitter = this
 
   // Setup websocket server
-  this.wss = new WebSocket.Server({ port: 33333 })
+  this.wss = new WebSocket.Server({ port: this.options.wsPort })
 
   // Serve optional static files
   if (this.options.static) {

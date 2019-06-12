@@ -9,6 +9,9 @@ const validateOptions = options => {
     port: Joi.number()
       .integer()
       .max(65535),
+    wsPort: Joi.number()
+      .integer()
+      .max(65535),
   })
 
   return Joi.validate(options, schema)

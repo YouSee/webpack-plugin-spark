@@ -13,6 +13,7 @@ const defaults = {
   progress: true,
   static: null,
   port: 55555,
+  wsPort: 33333,
 }
 
 const key = 'webpack-plugin-spark'
