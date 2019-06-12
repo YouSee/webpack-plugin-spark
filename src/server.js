@@ -42,6 +42,7 @@ const start = async function start() {
           client.send(
             JSON.stringify({
               eventType: 'liveReloadEvent',
+              hash: this.lastHash,
             }),
           )
         }
@@ -58,6 +59,7 @@ const start = async function start() {
             JSON.stringify({
               eventType: 'progressEvent',
               progress: data.percent * 100,
+              hash: this.lastHash,
             }),
           )
         }
