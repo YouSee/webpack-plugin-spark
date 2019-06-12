@@ -73,7 +73,7 @@ px.import({ scene: 'px:scene.1.js', ws: 'ws' }) // eslint-disable-line no-undef
   .then(imports => {
     const { ws: Websocket, scene } = imports
 
-    const websocket = new Websocket('ws://localhost:33333')
+    let websocket = null
 
     GlobalScene = scene.create({
       t: 'scene',
@@ -82,7 +82,23 @@ px.import({ scene: 'px:scene.1.js', ws: 'ws' }) // eslint-disable-line no-undef
     })
     GlobalScene.focus = true
 
-    // Handle websocket messages from server
-    websocket.on('message', data => handleServerResponse(scene, data))
+    // Websocket initializer
+    const startWebSocket = () => {
+      websocket = new Websocket('ws://localhost:33333')
+
+      // Handle websocket messages from server
+      websocket.on('message', data => handleServerResponse(scene, data))
+
+      websocket.on('error', () => console.log('Connection error'))
+    }
+
+    const checkSocketConnection = () =>
+      (!websocket || websocket.readyState === 3) && startWebSocket()
+
+    // Start websocket
+    startWebSocket()
+
+    // Check connection every 5 seconds
+    setInterval(checkSocketConnection, 5000)
   })
-  .catch(err => console.error(`Imports failed for hotreload.js: ${err}`))
+  .catch(err => console.error(`Imports failed for hotreload client: ${err}`))
