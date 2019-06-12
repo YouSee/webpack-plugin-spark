@@ -6,11 +6,14 @@
 */
 /* eslint-disable no-console */
 /* eslint-disable import/prefer-default-export */
+/* eslint-disable line-comment-position */
 
 // Global
 let GlobalScene = null
 let GlobalProgressScene = null
 let WebpackCompilationHash = null
+const outputUrl = '$outputurl$' // This value to be replaced by express server
+const websocketUrl = '$websocketurl$' // This value to be replaced by express server
 
 const clientResponseTypes = {
   progressEvent: 'progressEvent',
@@ -29,7 +32,7 @@ const disposeCurrentSceneAndReload = (scene, data) => {
   GlobalScene = scene.create({
     t: 'scene',
     parent: scene.root,
-    url: 'http://localhost:55555/bundle.js',
+    url: outputUrl,
   })
 }
 
@@ -78,13 +81,13 @@ px.import({ scene: 'px:scene.1.js', ws: 'ws' }) // eslint-disable-line no-undef
     GlobalScene = scene.create({
       t: 'scene',
       parent: scene.root,
-      url: 'http://localhost:55555/bundle.js',
+      url: outputUrl,
     })
     GlobalScene.focus = true
 
     // Websocket initializer
     const startWebSocket = () => {
-      websocket = new Websocket('ws://localhost:33333')
+      websocket = new Websocket(websocketUrl)
 
       // Handle websocket messages from server
       websocket.on('message', data => handleServerResponse(scene, data))

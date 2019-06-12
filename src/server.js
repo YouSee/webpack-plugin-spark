@@ -1,4 +1,5 @@
 import path from 'path'
+import fs from 'fs'
 
 import express from 'express'
 import WebSocket from 'ws'
@@ -23,7 +24,14 @@ const start = async function start() {
   if (this.options.liveReload) {
     app.use('*', (req, res) => {
       res.setHeader('Content-Type', 'application/javascript')
-      res.sendFile(path.join(__dirname, './client/index.js'))
+      const client = fs
+        .readFileSync(path.join(__dirname, './client/index.js'), 'utf8')
+        .replace(
+          '$outputurl$',
+          `http://localhost:${this.options.port}/${this.options.filename}`,
+        )
+        .replace('$websocketurl$', `ws://localhost:${this.options.wsPort}`)
+      res.send(client)
     })
   }
 

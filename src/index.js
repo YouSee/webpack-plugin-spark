@@ -98,6 +98,8 @@ class WebpackPluginSpark extends EventEmitter {
       // wait for the server to startup so we can get our client connection info from it
       await this.state.starting
 
+      this.options.filename = compiler.options.output.filename
+
       if (this.options.progress) {
         const progressPlugin = new ProgressPlugin((percent, message, misc) => {
           // pass the data onto the client raw. connected sockets may want to interpret the data
