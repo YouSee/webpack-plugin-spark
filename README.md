@@ -35,6 +35,7 @@ module.exports = {
       static: path.join(__dirname, './dist')
     })
   ],
+  watch: true, // Ensure webpack is running in watch mode
 };
 
 ```
