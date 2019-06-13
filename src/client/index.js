@@ -56,8 +56,7 @@ const updateProgressInfomation = (scene, progress, hash) => {
 const handleServerResponse = (scene, data) => {
   const jsonResponse = data && JSON.parse(data)
   if (!jsonResponse && !jsonResponse.eventType) return null
-  console.log(`received event type: ${jsonResponse.eventType}`)
-  console.log(`received hash: ${jsonResponse.hash}`)
+
   switch (jsonResponse.eventType) {
     case clientResponseTypes.liveReloadEvent:
       return disposeCurrentSceneAndReload(scene, jsonResponse)
