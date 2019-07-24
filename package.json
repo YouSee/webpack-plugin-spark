@@ -1,6 +1,6 @@
 {
   "name": "webpack-plugin-spark",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Serve spark UI with hot reloading",
   "repository": "YouSee/webpack-plugin-spark",
   "main": "dist/plugin.js",
