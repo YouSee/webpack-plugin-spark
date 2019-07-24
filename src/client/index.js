@@ -82,7 +82,6 @@ px.import({ scene: 'px:scene.1.js', ws: 'ws' }) // eslint-disable-line no-undef
       parent: scene.root,
       url: outputUrl,
     })
-    GlobalScene.focus = true
 
     // Websocket initializer
     const startWebSocket = () => {
