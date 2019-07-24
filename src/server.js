@@ -28,9 +28,12 @@ const start = async function start() {
         .readFileSync(path.join(__dirname, './client/index.js'), 'utf8')
         .replace(
           '$outputurl$',
-          `http://localhost:${this.options.port}/${this.options.filename}`,
+          `http://${req.hostname}:${this.options.port}/${this.options.filename}`,
         )
-        .replace('$websocketurl$', `ws://localhost:${this.options.wsPort}`)
+        .replace(
+          '$websocketurl$',
+          `ws://${req.hostname}:${this.options.wsPort}`,
+        )
       res.send(client)
     })
   }
